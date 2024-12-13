@@ -19,7 +19,7 @@ project/
 ### Example Output
 
 ```text
-File: /Users/thomasmickley-doyle/repos/language_model/config.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
 import torch
 
 class Config:
@@ -30,7 +30,7 @@ class Config:
   n_head = 6      # number of attention heads
 ---------------
 Question: What is the learning rate used in the model?
-File: /Users/thomasmickley-doyle/repos/language_model/config.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
   vocab_size = 512  # Added this parameter for BPE tokenizer
 
   # Training hyperparameters
@@ -43,7 +43,7 @@ File: /Users/thomasmickley-doyle/repos/language_model/config.py
   device = 'cuda' if torch.cuda.is_available() else 'cpu'
 ---------------
 Question: What is the dropout rate used in the model?
-File: /Users/thomasmickley-doyle/repos/language_model/config.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
 class Config:
   # Model hyperparameters
   batch_size = 64  # how many independent sequences will we process in parallel?
@@ -56,7 +56,7 @@ class Config:
 
 ---------------
 Question: Where is the training data?
-File: /Users/thomasmickley-doyle/repos/language_model/train.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/train.py
 from data import TextDataset
 from model import GPTLanguageModel
 
@@ -69,7 +69,7 @@ def train():
   dataset.load_data('input.txt')
 ---------------
 Question: What is the Byte Pair Encoding tokenizer?
-File: /Users/thomasmickley-doyle/repos/language_model/bpe.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/bpe.py
 """
 Minimal (byte-level) Byte Pair Encoding tokenizer.
 
@@ -80,7 +80,7 @@ But:
 
 ---------------
 Question: GPTLanguageModel
-File: /Users/thomasmickley-doyle/repos/language_model/model.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/model.py
       x = x + self.sa(self.ln1(x))
       x = x + self.ffwd(self.ln2(x))
       return x
@@ -93,7 +93,7 @@ class GPTLanguageModel(nn.Module):
       self.token_embedding_table = nn.Embedding(vocab_size, config.n_embd)
 ---------------
 Question: How can I load the decoder from the tokenizer?
-File: /Users/thomasmickley-doyle/repos/language_model/bpe.py
+File: https://github.com/tmickleydoyle/language_model/blob/main/bpe.py
               file.write(f"{idx} {token.hex()}\n")
 
   def load_decoder(self, path: str = "decoder.txt") -> None:
