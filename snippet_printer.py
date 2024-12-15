@@ -1,6 +1,10 @@
 def pprint_code_snippet(file_path, row_number):
     """
     Pretty-prints a code snippet from a file.
+
+    Args:
+        file_path (str): The path to the file.
+        row_number (int): The row number of the code snippet
     """
     try:
         with open(file_path, "r") as file:

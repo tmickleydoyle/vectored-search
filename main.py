@@ -4,6 +4,9 @@ from query_engine import QueryEngine
 from config import COLLECTION_NAME, DIRECTORY
 
 def main():
+    """
+    Main function to load code snippets, upsert them into the database, and run example queries.
+    """
     db_client = DBClient(COLLECTION_NAME)
     query_engine = QueryEngine(db_client)
 
@@ -21,7 +24,7 @@ def main():
         "What is the context length for the model?",
         "What is the learning rate used in the model?",
         "What is the dropout rate used in the model?",
-        "Where is the training data?",
+        "How is the training data loaded into the model?",
         "What is the Byte Pair Encoding tokenizer?",
         "GPTLanguageModel",
         "How can I load the decoder from the tokenizer?",

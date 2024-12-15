@@ -25,58 +25,63 @@ project/
 
 ### Example Output
 
-```text
-File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
-import torch
+Embeddings trained on my [language_model](https://github.com/tmickleydoyle/language_model) repo
 
-class Config:
-  # Model hyperparameters
-  batch_size = 64  # how many independent sequences will we process in parallel?
-  block_size = 128   # maximum context length for predictions
-  n_embd = 384    # embedding dimension
-  n_head = 6      # number of attention heads
+```text
+Question: What is the context length for the model?
+File: /Users/thomasmickley-doyle/repos/language_model/config.py
+        eval_iters: Number of iterations to run evaluation for.
+        device: Device to run the model on.
+        seed: Random seed for reproducibility.
+    """
+    # Model hyperparameters
+    batch_size = 64  # how many independent sequences will we process in parallel?
+    block_size = 128   # maximum context length for predictions
+    n_embd = 384    # embedding dimension
+    n_head = 6      # number of attention heads
+    n_layer = 6     # number of transformer blocks
 ---------------
 Question: What is the learning rate used in the model?
-File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
-  vocab_size = 512  # Added this parameter for BPE tokenizer
-
-  # Training hyperparameters
-  max_iters = 2500
-  eval_interval = 500
-  learning_rate = 3e-4
-  eval_iters = 200
-
-  # System
-  device = 'cuda' if torch.cuda.is_available() else 'cpu'
+File: /Users/thomasmickley-doyle/repos/language_model/config.py
+        vocab_size: Size of the vocabulary.
+        max_iters: Maximum number of training iterations.
+        eval_interval: Number of iterations between evaluation runs.
+        learning_rate: Learning rate for the optimizer.
+        eval_iters: Number of iterations to run evaluation for.
+        device: Device to run the model on.
+        seed: Random seed for reproducibility.
+    """
+    # Model hyperparameters
+    batch_size = 64  # how many independent sequences will we process in parallel?
 ---------------
 Question: What is the dropout rate used in the model?
-File: https://github.com/tmickleydoyle/language_model/blob/main/config.py
-class Config:
-  # Model hyperparameters
-  batch_size = 64  # how many independent sequences will we process in parallel?
-  block_size = 128   # maximum context length for predictions
-  n_embd = 384    # embedding dimension
-  n_head = 6      # number of attention heads
-  n_layer = 6     # number of transformer blocks
-  dropout = 0.2   # dropout rate
-  vocab_size = 512  # Added this parameter for BPE tokenizer
-
+File: /Users/thomasmickley-doyle/repos/language_model/config.py
+        n_embd: Embedding dimension.
+        n_head: Number of attention heads.
+        n_layer: Number of transformer blocks.
+        dropout: Dropout rate.
+        vocab_size: Size of the vocabulary.
+        max_iters: Maximum number of training iterations.
+        eval_interval: Number of iterations between evaluation runs.
+        learning_rate: Learning rate for the optimizer.
+        eval_iters: Number of iterations to run evaluation for.
+        device: Device to run the model on.
 ---------------
-Question: Where is the training data?
-File: https://github.com/tmickleydoyle/language_model/blob/main/train.py
-from data import TextDataset
-from model import GPTLanguageModel
+Question: How is the training data loaded into the model?
+File: /Users/thomasmickley-doyle/repos/language_model/train.py
+    # Save the model
+    torch.save(model.state_dict(), 'model.pth')
 
-def train():
-  # Initialize configuration
-  config = Config()
+    # load the model
+    loaded_model = GPTLanguageModel(config, dataset.vocab_size)
+    loaded_model.load_state_dict(torch.load('model.pth'))
+    loaded_model = loaded_model.to(config.device)
 
-  # Load and prepare data
-  dataset = TextDataset(config)
-  dataset.load_data('input.txt')
+    # Example question
+    question = "What is Monstera?"
 ---------------
 Question: What is the Byte Pair Encoding tokenizer?
-File: https://github.com/tmickleydoyle/language_model/blob/main/bpe.py
+File: /Users/thomasmickley-doyle/repos/language_model/bpe.py
 """
 Minimal (byte-level) Byte Pair Encoding tokenizer.
 
@@ -87,28 +92,29 @@ But:
 
 ---------------
 Question: GPTLanguageModel
-File: https://github.com/tmickleydoyle/language_model/blob/main/model.py
-      x = x + self.sa(self.ln1(x))
-      x = x + self.ffwd(self.ln2(x))
-      return x
+File: /Users/thomasmickley-doyle/repos/language_model/model.py
+        x = x + self.sa(self.ln1(x))
+        x = x + self.ffwd(self.ln2(x))
+        return x
 
 class GPTLanguageModel(nn.Module):
-  def __init__(self, config, vocab_size):
-      super().__init__()
-      self.config = config
-
-      self.token_embedding_table = nn.Embedding(vocab_size, config.n_embd)
+    """
+    GPT language model with transformer blocks. Generates text autoregressively.
+    """
+    def __init__(self, config, vocab_size):
+        super().__init__()
 ---------------
 Question: How can I load the decoder from the tokenizer?
-File: https://github.com/tmickleydoyle/language_model/blob/main/bpe.py
-              file.write(f"{idx} {token.hex()}\n")
+File: /Users/thomasmickley-doyle/repos/language_model/bpe.py
+        """
+        with open(path, "w") as file:
+            for idx, token in self.vocab.items():
+                file.write(f"{idx} {token.hex()}\n")
 
-  def load_decoder(self, path: str = "decoder.txt") -> None:
-      """
-      Load the decoder from a file.
+    def load_decoder(self, path: str = "decoder.txt") -> None:
+        """
+        Load the decoder from a file.
 
-      Args:
-          path (str): The path to load the decoder from.
-      """
-      self.vocab = {}
+        Args:
 ---------------
+```

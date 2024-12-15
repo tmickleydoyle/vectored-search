@@ -14,6 +14,7 @@ click==8.1.7
 coloredlogs==15.0.1
 Deprecated==1.2.15
 durationpy==0.9
+einops==0.8.0
 exceptiongroup==1.2.2
 fastapi==0.115.6
 filelock==3.16.1
