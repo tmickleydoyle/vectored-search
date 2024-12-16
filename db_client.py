@@ -1,11 +1,13 @@
-from chromadb import PersistentClient
+from chromadb import PersistentClient, HttpClient
 from chromadb.utils import embedding_functions
 from config import VECTOR_DB_PATH, MODEL_NAME, DEVICE, TRUST_REMOTE_CODE
+
 
 class DBClient:
     """
     DBClient class for interacting with the VectorDB database.
     """
+
     def __init__(self, collection_name):
         """
         SentenceTransformerEmbeddingFunction is used to encode the text into embeddings.
@@ -14,16 +16,14 @@ class DBClient:
             collection_name (str): The name of the collection in the database.
         """
         ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=MODEL_NAME,
-            device=DEVICE,
-            trust_remote_code=TRUST_REMOTE_CODE
+            model_name=MODEL_NAME, device=DEVICE, trust_remote_code=TRUST_REMOTE_CODE
         )
-        self.client = PersistentClient(path=VECTOR_DB_PATH)
+        # self.client = PersistentClient(path=VECTOR_DB_PATH)
+        self.client = HttpClient(host="localhost", port=8000)
         self.collection = self.client.get_or_create_collection(
-            collection_name,
-            metadata={"hnsw:space": "cosine"},
-            embedding_function=ef
+            collection_name, metadata={"hnsw:space": "cosine"}, embedding_function=ef
         )
+        # self.collection.delete()
 
     def upsert_document(self, document, doc_id, metadata):
         """
@@ -45,4 +45,6 @@ class DBClient:
             n_results (int): The number of results to return.
             include (list): The list of items to include in the results.
         """
-        return self.collection.query(query_texts=query_texts, n_results=n_results, include=include)
+        return self.collection.query(
+            query_texts=query_texts, n_results=n_results, include=include
+        )

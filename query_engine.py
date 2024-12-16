@@ -1,4 +1,5 @@
-from snippet_printer import pprint_code_snippet
+from snippet_printer import get_code_snippet
+
 
 class QueryEngine:
     """
@@ -7,6 +8,7 @@ class QueryEngine:
     Args:
         db_client (DBClient): The database client.
     """
+
     def __init__(self, db_client):
         self.db_client = db_client
 
@@ -21,11 +23,15 @@ class QueryEngine:
         results = self.db_client.query(
             query_texts=[question],
             n_results=n_results,
-            include=["documents", "metadatas", "distances"]
+            include=["documents", "metadatas", "distances"],
         )
         for metadata in results["metadatas"][0]:
             file_path = metadata["file_path"]
-            row_number = metadata["row_number"]
+            start_row = metadata["start_row"]
+            end_row = metadata["end_row"]
             print(f"Question: {question}")
-            pprint_code_snippet(file_path, row_number)
+            code_snippet = get_code_snippet(file_path, start_row, end_row)
+            print(f"File: {file_path}")
+            for line in code_snippet:
+                print(line, end="")
             print("---------------")
