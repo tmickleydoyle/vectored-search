@@ -64,6 +64,7 @@ def main():
             "How can I load the decoder from the tokenizer?",
             "What is the default device for the model?",
             "Where can I find the byte pair encoder?",
+            "block_size",
         ]
 
         for question in questions:

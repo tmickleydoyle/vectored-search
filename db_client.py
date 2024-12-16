@@ -34,6 +34,7 @@ class DBClient:
             doc_id (str): The ID of the document.
             metadata (dict): The metadata associated with the document.
         """
+        document = f"search_document: {document}"
         self.collection.upsert(documents=[document], ids=[doc_id], metadatas=[metadata])
 
     def query(self, query_texts, n_results, include):
