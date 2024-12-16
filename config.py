@@ -2,14 +2,12 @@ from tree_sitter import Language, Parser
 import tree_sitter_python as tspython
 
 # Configuration Variables
-COLLECTION_NAME = "code_snippets"
-DIRECTORY = "/Users/thomasmickley-doyle/repos/language_model"
-VECTOR_DB_PATH = "/Users/thomasmickley-doyle/repos/vectordb-search/vector_db"
-MODEL_NAME = "nomic-ai/nomic-embed-text-v1.5"  ## Pulled from Hugging Face
-DEVICE = "cpu"
-TRUST_REMOTE_CODE = True
-INCLUDED_EXTENSIONS = (".py",)
-LANGUAGE_LIB = "build/my-languages.so"
+COLLECTION_NAME = "code_snippets"  # Name of the collection in ChromaDB
+DIRECTORY = "/Users/thomasmickley-doyle/repos/language_model"  # Directory to search for code snippets
+MODEL_NAME = "nomic-ai/nomic-embed-text-v1.5"  # Pulled from Hugging Face
+DEVICE = "cpu"  # Device to run the model on
+TRUST_REMOTE_CODE = True  # Model setting to pull from Hugging Face
+INCLUDED_EXTENSIONS = (".py",)  # File extensions to include in the search
 
 # Correct initialization of the Language object
 PYTHON_LANGUAGE = Language(tspython.language())

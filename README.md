@@ -6,6 +6,33 @@
 
 Uses ChromaDB to index code snippets and perform similarity searches. The code snippets are tokenized and embedded using a transformer model trained on a large codebase, `nomic-embed-text-v1`. The code is parsed with the `tree-sitter` library and the embeddings are generated using the `transformers` library. Natural langauge searches are tokenized and embedded in the same way, and the cosine similarity between the query and the code snippets is used to rank the results. The top `k` results are then returned pretty-printed and displayed in the terminal. To convert this into a RAG model, the code snippets could be used as the `context` and the query could be used as the `question`.
 
+### Project Configs
+
+The majority of the setting for the code are set in the `config.py` file. The `config.py` file contains the following settings:
+
+```python
+from tree_sitter import Language, Parser
+import tree_sitter_python as tspython
+
+# Configuration Variables
+COLLECTION_NAME = "code_snippets" # Name of the collection in ChromaDB
+DIRECTORY = "/Users/thomasmickley-doyle/repos/language_model" # Directory to search for code snippets
+MODEL_NAME = "nomic-ai/nomic-embed-text-v1.5"  # Pulled from Hugging Face
+DEVICE = "cpu" # Device to run the model on
+TRUST_REMOTE_CODE = True # Model setting to pull from Hugging Face
+INCLUDED_EXTENSIONS = (".py",) # File extensions to include in the search
+
+# Correct initialization of the Language object
+PYTHON_LANGUAGE = Language(tspython.language())
+
+# Initialize the parser
+parser = Parser(PYTHON_LANGUAGE)
+
+LANGUAGE_PARSERS = {
+    ".py": parser,
+}
+```
+
 ### Getting Started
 
 1. Clone the repository

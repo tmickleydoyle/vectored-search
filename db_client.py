@@ -1,6 +1,6 @@
-from chromadb import PersistentClient, HttpClient
+from chromadb import HttpClient
 from chromadb.utils import embedding_functions
-from config import VECTOR_DB_PATH, MODEL_NAME, DEVICE, TRUST_REMOTE_CODE
+from config import MODEL_NAME, DEVICE, TRUST_REMOTE_CODE
 
 
 class DBClient:
@@ -18,8 +18,9 @@ class DBClient:
         ef = embedding_functions.SentenceTransformerEmbeddingFunction(
             model_name=MODEL_NAME, device=DEVICE, trust_remote_code=TRUST_REMOTE_CODE
         )
-        # self.client = PersistentClient(path=VECTOR_DB_PATH)
-        self.client = HttpClient(host="localhost", port=8000)
+        self.client = HttpClient(
+            host="localhost", port=8000
+        )  # Docker container running on ChromaDB
         self.collection = self.client.get_or_create_collection(
             collection_name, metadata={"hnsw:space": "cosine"}, embedding_function=ef
         )
