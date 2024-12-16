@@ -28,6 +28,23 @@ project/
 └── requirements.txt      # Dependency list
 ```
 
+### CLI Commands
+
+Training on the data
+```text
+python main.py --train
+```
+
+Generate embeddings for the code snippets. Example questions are in the main.py file.
+```text
+python main.py --generate
+```
+
+Train and genrate embeddings
+```text
+python main.py --train --generate
+```
+
 ### Example Output
 
 Embeddings trained on my [language_model](https://github.com/tmickleydoyle/language_model) repo
