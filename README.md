@@ -1,4 +1,5 @@
-**WIP**
+
+![6051164](https://github.com/user-attachments/assets/58acd1c9-8aa0-4899-a309-d5a950963104)
 
 ## Vector Search Over Code
 
