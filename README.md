@@ -117,7 +117,7 @@ class Config:
 ---------------
 ```
 
-Use the a RAG flow to generate code snippets based on a query response
+Use a RAG workflow to generate an answer based on a query response.
 ```text
 $ python main.py --rag-generate "What does load_data do?"
 
