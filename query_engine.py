@@ -12,7 +12,7 @@ class QueryEngine:
     def __init__(self, db_client):
         self.db_client = db_client
 
-    def query_and_print(self, question, n_results=1):
+    def query(self, question, n_results=3, verbose=False):
         """
         Queries the database with a question and prints the results.
 
@@ -25,13 +25,16 @@ class QueryEngine:
             n_results=n_results,
             include=["documents", "metadatas", "distances"],
         )
-        for metadata in results["metadatas"][0]:
-            file_path = metadata["file_path"]
-            start_row = metadata["start_row"]
-            end_row = metadata["end_row"]
-            print(f"Question: {question}")
-            code_snippet = get_code_snippet(file_path, start_row, end_row)
-            print(f"File: {file_path}")
-            for line in code_snippet:
-                print(line, end="")
-            print("---------------")
+        if verbose:
+            for metadata in results["metadatas"][0]:
+                file_path = metadata["file_path"]
+                start_row = metadata["start_row"]
+                end_row = metadata["end_row"]
+                print(f"Question: {question}")
+                code_snippet = get_code_snippet(file_path, start_row, end_row)
+                print(f"File: {file_path}")
+                for line in code_snippet:
+                    print(line, end="")
+                print("---------------")
+
+        return results
